@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845770821507",
+    "project_id": "my-task-43eef",
+    "storage_bucket": "my-task-43eef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845770821507:android:84c292836a550e4d4ef0b6",
+        "android_client_info": {
+          "package_name": "com.industrialmaster.mytarget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845770821507-tpctljop79ds37d8qnof538jr78dmtoh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7yNSzBcrBttv77g-iQxXywBGhCjeH53I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845770821507-tpctljop79ds37d8qnof538jr78dmtoh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
