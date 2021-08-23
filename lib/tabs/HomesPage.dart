@@ -10,8 +10,8 @@ class HomesPage extends StatefulWidget {
 }
 
 class _HomesPageState extends State<HomesPage> {
-  final Stream<QuerySnapshot> _targetStream =
-      FirebaseFirestore.instance.collection('targets').snapshots();
+  final Stream<QuerySnapshot> _employeeStream =
+      FirebaseFirestore.instance.collection('employee').snapshots();
 
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtNote = TextEditingController();
@@ -20,7 +20,7 @@ class _HomesPageState extends State<HomesPage> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: StreamBuilder<QuerySnapshot>(
-            stream: _targetStream,
+            stream: _employeeStream,
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasError) {
@@ -40,61 +40,90 @@ class _HomesPageState extends State<HomesPage> {
                   dynamic doc = document.data();
                   return ExpansionPanel(
                       headerBuilder: (BuildContext context, bool isExpanded) {
-                        return Container(
-                          padding: EdgeInsets.all(11.0),
-                          child: Text(
-                            doc["name"],
-                            textScaleFactor: 1.5,
-                          ),
-                        );
+                        return Container();
                       },
                       body: Container(
-                          padding: EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "AMOUNT : " + doc["amount"].toString(),
-                                    textScaleFactor: 1.1,
-                                  ),
-                                  Text("DATE : " +
-                                      doc["date"]
-                                          .toDate()
-                                          .toString()
-                                          .split(" ")[0]),
-                                ],
-                              ),
-                              Divider(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(doc["contribution_total"].toString() +
-                                      " / " +
-                                      doc["amount"].toString()),
-                                  IconButton(
-                                    splashColor: Colors.blueGrey,
-                                    highlightColor: Colors.green,
-                                    color: Colors.green,
-                                    icon: Icon(Icons.attach_money),
-                                    onPressed: () {
-                                      String tid = document.id;
-                                      _showMyDialog(tid);
-                                    },
-                                  )
-                                ],
-                              ),
-                              LinearProgressIndicator(
-                                valueColor: new AlwaysStoppedAnimation<Color>(
-                                    Colors.green),
-                                value:
-                                    doc["contribution_total"] / doc["amount"],
-                              )
-                            ],
-                          )),
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(6),
+                                        child: FittedBox(),
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "Employee NO : " +
+                                                doc["employeeNo"],
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "Employee Name : " +
+                                                doc["employeeName"],
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text("DATE of Birth : " +
+                                              doc["DateOfBirth"]
+                                                  .toDate()
+                                                  .toString()
+                                                  .split(" ")[0]),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'permanen',
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                            splashColor: Colors.blueGrey,
+                                            highlightColor: Colors.green,
+                                            color: Colors.green,
+                                            icon: Icon(Icons.edit),
+                                            onPressed: () {}),
+                                        IconButton(
+                                          splashColor: Colors.blueGrey,
+                                          highlightColor: Colors.green,
+                                          color: Colors.green,
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                            String tid = document.id;
+                                            _showMyDialog(tid);
+                                          },
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                       isExpanded: true);
                 }).toList(),
               );
@@ -107,51 +136,32 @@ class _HomesPageState extends State<HomesPage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('ENTER CONTRIBUTION'),
+          title: const Text('Warning'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('Enter Amount'),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: txtAmount,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Text('Enter Note'),
-                TextFormField(
-                  controller: txtNote,
-                ),
+                Text('Are you want to remove this employee'),
               ],
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: const Text('SAVE'),
-              onPressed: () {
-                String amount = txtAmount.text;
-                String note = txtNote.text;
-
-                FirebaseFirestore.instance.collection("contribution").add({
-                  'amount': int.parse(amount),
-                  'note': note,
-                  'date': new DateTime.now(),
-                  'target_id': tid
-                });
-
-                FirebaseFirestore.instance
-                    .collection('targets')
-                    .doc(tid)
-                    .update({
-                  'contribution_total': FieldValue.increment(int.parse(amount))
-                });
-
-                txtAmount.clear();
-                txtNote.clear();
-
-                Navigator.of(context).pop();
-              },
+            Column(
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('NO'),
+                ),
+                TextButton(
+                  child: const Text('SAVE'),
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('employee')
+                        .doc(tid)
+                        .delete();
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
           ],
         );

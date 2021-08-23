@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "845770821507",
-    "project_id": "my-task-43eef",
-    "storage_bucket": "my-task-43eef.appspot.com"
+    "project_number": "265883021242",
+    "project_id": "employeemanager-b73ad",
+    "storage_bucket": "employeemanager-b73ad.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:845770821507:android:84c292836a550e4d4ef0b6",
+        "mobilesdk_app_id": "1:265883021242:android:daf563bfff9cf3beaaf783",
         "android_client_info": {
-          "package_name": "com.industrialmaster.mytarget"
+          "package_name": "com.industrialmaster.employee"
         }
       },
       "oauth_client": [
         {
-          "client_id": "845770821507-tpctljop79ds37d8qnof538jr78dmtoh.apps.googleusercontent.com",
+          "client_id": "265883021242-o2nakkp46e1edco0f158tmuknusr6iak.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB7yNSzBcrBttv77g-iQxXywBGhCjeH53I"
+          "current_key": "AIzaSyCpnQ3vr3kb_5zPy4PVG9CsWUJtjZLxxHM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "845770821507-tpctljop79ds37d8qnof538jr78dmtoh.apps.googleusercontent.com",
+              "client_id": "265883021242-o2nakkp46e1edco0f158tmuknusr6iak.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -9,15 +9,15 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  final Stream<QuerySnapshot> _contributionStream =
-      FirebaseFirestore.instance.collection("contribution").snapshots();
+  final Stream<QuerySnapshot> employeeStream =
+      FirebaseFirestore.instance.collection("employee").snapshots();
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Container(
       height: MediaQuery.of(context).size.height,
       child: StreamBuilder<QuerySnapshot>(
-        stream: _contributionStream,
+        stream: employeeStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text("Something went worng");
@@ -38,28 +38,20 @@ class _HistoryPageState extends State<HistoryPage> {
                   key: Key(document.id),
                   onDismissed: (direction) {
                     FirebaseFirestore.instance
-                        .collection("targets")
-                        .doc(document["target_id"])
-                        .update({
-                      'contribution_total':
-                          FieldValue.increment(-1 * document['amount'])
-                    });
-
-                    FirebaseFirestore.instance
-                        .collection('contribution')
+                        .collection('employee')
                         .doc(document.id)
                         .delete();
                   },
                   child: ListTile(
                     title: Text(
-                      document['note'],
+                      document['employeeName'],
                       textScaleFactor: 1.3,
                     ),
                     subtitle: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(document['amount'].toString()),
-                        Text(document['date'].toDate().toString())
+                        Text(document['employeeNo'].toString()),
+                        Text(document['DateOfBirth'].toDate().toString())
                       ],
                     ),
                   ),

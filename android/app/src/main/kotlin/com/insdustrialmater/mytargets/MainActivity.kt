@@ -1,4 +1,4 @@
-package com.industrialmaster.mytarget
+package com.industrialmaster.employee
 
 import io.flutter.embedding.android.FlutterActivity
 

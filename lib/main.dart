@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mytargets/pages/target/creates.dart';
-import 'package:mytargets/screens/main_drawer.dart';
 
-import 'package:mytargets/tabs/ChartPage.dart';
 import 'package:mytargets/tabs/HistoryPage.dart';
 import 'package:mytargets/tabs/HomesPage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import './pages/addEmployee/add_employee.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +18,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'My Target',
+        title: 'Employee Mangament',
         home: Root(),
-        theme: ThemeData(primarySwatch: Colors.amber));
+        theme: ThemeData(primarySwatch: Colors.grey));
   }
 }
 
@@ -43,25 +41,24 @@ class _RootState extends State<Root> {
   @override
   Widget build(BuildContext context) {
     tabs.add(HomesPage());
-    tabs.add(ChartPage());
 
     tabs.add(HistoryPage());
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('My TARGET'),
+        title: Text('Employee Management'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // ignore: unused_local_variable
           setState(() {
-            page = TrageCreate();
+            page = AddEmploye();
             pageAssigned = true;
           });
         },
         child: Icon(Icons.add),
       ),
-      drawer: MainDrawer(),
+
       // ignore: unnecessary_null_comparison
       body: pageAssigned ? page : tabs[index],
       bottomNavigationBar: BottomNavigationBar(
@@ -74,7 +71,6 @@ class _RootState extends State<Root> {
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
-          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: "CHARTS"),
           BottomNavigationBarItem(icon: Icon(Icons.history), label: "HISTORY")
         ],
       ),
